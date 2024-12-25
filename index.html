@@ -95,8 +95,8 @@
         <script>
             let sig = document.getElementById('signal')
             let wait = false
-            let mapa1 = [{img:'mapa1.png', x:null},{img:'mapa2.png', x:null}, {img:'mapa3.png', x:{x:0,y:0}}]
-            let mapa2 = [{img:'mapa4.png', x:null},{img:'mapa5.png', x:null}, {img:'mapa6.png', x:{x:0,y:0}}]
+            let mapa1 = [{img:'mapa1.png', x:null},{img:'mapa2.png', x:null}, {img:'mapa3.png', x:{x:330,y:150}}]
+            let mapa2 = [{img:'mapa4.png', x:null},{img:'mapa5.png', x:null}, {img:'mapa6.png', x:{x:300,y:150}}]
             let currentMap = mapa1
             document.getElementById('mapa').onclick = function(e) {
                 // e = Mouse click event.
@@ -105,6 +105,17 @@
                 var y = e.clientY - rect.top;  //y position within the element.
                 console.log("Left? : " + x + " ; Top? : " + y + ".");
                 if(!wait){
+                    if(currentMap[currentImgIndex].x == null || x > (currentMap[currentImgIndex].x.x + 100) || x < (currentMap[currentImgIndex].x.x - 100) || y < (currentMap[currentImgIndex].x.y - 100) || y > (currentMap[currentImgIndex].x.y + 100)){
+                        sig.style.backgroundColor = 'rgb(81, 111, 209)'
+                    }
+                    else{
+                        if(x > (currentMap[currentImgIndex].x.x + 20) || x < (currentMap[currentImgIndex].x.x - 20) || y < (currentMap[currentImgIndex].x.y - 20) || y > (currentMap[currentImgIndex].x.y + 20)){
+                            sig.style.backgroundColor = '#ffdd48'
+                        }
+                        else{
+                            sig.style.backgroundColor = 'red'
+                        }
+                    }
                     wait = true
                     sig.style.top = y+20+'px'
                     sig.style.left = x+20+'px'
