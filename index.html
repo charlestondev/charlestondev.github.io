@@ -40,14 +40,21 @@
                 padding:20px;
                 box-sizing: border-box;
             }
+            @keyframes pulse{
+                0% {width: 0;height: 0;opacity:0}
+                50% {opacity:1}
+                100% {width: 60px;height: 60px;opacity:0}
+                
+            }
             #signal{
-                width:5px;
-                height:5px;
-                background-color: rgb(72, 211, 90);
-                border-radius: 30px;
-                transition: visibility 0s, opacity 1s ease-in, width 1s, height 1s;
-                transform: translate(-50%, -50%);
+                width:0px;
+                height:0px;
                 opacity: 0.5;
+                background-color: rgb(81, 111, 209);
+                border-radius: 30px;
+                transform: translate(-50%, -50%);
+                
+                animation-duration: 1s;
             }
         </style>
     </head>
@@ -81,16 +88,21 @@
         
         <script>
             let sig = document.getElementById('signal')
+            let wait = false
             document.getElementById('mapa').onclick = function(e) {
                 // e = Mouse click event.
                 var rect = e.target.getBoundingClientRect();
                 var x = e.clientX - rect.left; //x position within the element.
                 var y = e.clientY - rect.top;  //y position within the element.
                 console.log("Left? : " + x + " ; Top? : " + y + ".");
-                sig.style.top = y+19+'px'
-                sig.style.left = x+19+'px'
-                sig.style.width = '60px'
-                sig.style.height = '60px'
+                if(!wait){
+                    wait = true
+                    sig.style.top = y+20+'px'
+                    sig.style.left = x+20+'px'
+                    sig.style.animationName = 'pulse'
+                    setTimeout(()=>{sig.style.animationName = '';wait = false}, 1000)
+                    
+                }
             }
             document.getElementById('mapa').onmousemove = function(e){
                 var rect = e.target.getBoundingClientRect();
